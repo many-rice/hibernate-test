@@ -88,8 +88,8 @@ public class Main {
 //        Address address1=new Address("上海虹口");
 //        session1.save(address1);
 //
-        Address address2=new Address("金州勇士");
-        session1.save(address2);
+//        Address address2=new Address("金州勇士");
+//        session1.save(address2);
 //
 //        Person person=new Person();
 //        person.setName("crazyit.org");
@@ -106,12 +106,21 @@ public class Main {
 //        session1.save(person1);
 
 
-        Person person=new Person();
-        person.setName("chentao");
-        person.setAge(25);
-        person.setAddress(address2);
-        session1.save(person);
+//        Person person=new Person();
+//        person.setName("chentao");
+//        person.setAge(25);
+//        person.setAddress(address2);
+//        session1.save(person);
 
+//        Person person=new Person("chentao",'f');
+        Address address=new Address("金桔小区64号601","200312","上海");
+//        person.setAddress(address);
+//        session1.save(person);
+        Employee employee=new Employee("java后端",new Double(40000));
+        employee.setAddress(address);
+        employee.setName("curry");
+        employee.setGender('m');
+        session1.save(employee);
         tx.commit();
         session1.close();
         sf.close();

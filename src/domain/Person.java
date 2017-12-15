@@ -8,17 +8,27 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@DiscriminatorColumn(name="person_type",
+        discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("普通人")
 @Table(name="person_inf")
 public class Person {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="person_id",nullable = false)
+    @Column(name="person_id")
     private Integer id;
     private String name;
     private int age;
-    @OneToOne(targetEntity = Address.class)
-    @JoinColumn(name="aid",referencedColumnName = "address_id",unique = true)
+    private char gender;
+//    @OneToOne(targetEntity = Address.class)
+//    @JoinColumn(name="aid",referencedColumnName = "address_id",unique = true)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="detail" , column = @Column(name="address_detail")),
+            @AttributeOverride(name="zip",column = @Column(name="address_zip")),
+            @AttributeOverride(name="country",column = @Column(name="address_country"))
+    })
     private Address address;
 //    @ManyToMany(targetEntity = Address.class)
 //    @OneToMany(targetEntity = Address.class,mappedBy = "person")
@@ -140,5 +150,20 @@ public class Person {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+    public Person(){
+
+    }
+    public Person(String name,char gender){
+        this.name=name;
+        this.gender=gender;
     }
 }
